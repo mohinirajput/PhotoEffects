@@ -1,0 +1,19 @@
+canvas{
+    height:280px;
+    width:350px;
+    border: solid grey;
+  }
+  div {
+    color: #155a6e;
+    padding: 15px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+  }   
+  
+  #WandB{
+    background-color:#c3c3c3;
+  }
