@@ -3,7 +3,7 @@ canvas{
     width:350px;
     border: solid grey;
   }
-  div {
+div {
     color: #155a6e;
     padding: 15px;
     position: absolute;
@@ -14,6 +14,6 @@ canvas{
     transform: translate(-50%,-50%);
   }   
   
-  #WandB{
+input{
     background-color:#c3c3c3;
   }
