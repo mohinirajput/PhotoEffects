@@ -1,6 +1,6 @@
 var fgImg = null;
 var canvas;
-var greyImg=null, redImg=null, rainbowImg=null, blueImg=null, greenImg=null;
+var greyImg=null, redImg=null, rainbowImg=null, blueImg=null, greenImg=null, borderOnImg=null;
 
 function loadImg(){
   var file=document.getElementById("imgFile");
@@ -11,10 +11,30 @@ function loadImg(){
   rainbowImg = new SimpleImage(file);
   blueImg = new SimpleImage(file);
   greenImg = new SimpleImage(file);
+  borderOnImg = new SimpleImage(file);
   fgImg.drawTo(canvas);
 }
 
-
+function addBorder(){
+  if(fgImg==null)
+    alert("Image not loaded");
+  else{
+    var height1 = borderOnImg.getHeight();
+    var widhth1 = borderOnImg.getWidth();
+    console.log(height1);
+    for(var px of borderOnImg.values()){
+      var count = px.getY();
+      var count1 = px.getX();
+      if(count<height1/13 || count>12*(height1/13) || count1<widhth1/13 || count1>12*(widhth1/13)){
+        px.setRed(128);
+        px.setGreen(0);
+        px.setBlue(42);
+        count++;
+      }
+      borderOnImg.drawTo(canvas);
+    }
+  }
+}
 function blankAndWhite(){
   if(fgImg==null){
     alert("Image not loaded");
@@ -98,6 +118,7 @@ function resetImage() {
     blueImg = new SimpleImage(fgImg);
     greenImg = new SimpleImage(fgImg);
     rainbowImg = new SimpleImage(fgImg);
+    borderOnImg = new SimpleImage(fgImg);
   }
 }
 
