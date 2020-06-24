@@ -1,7 +1,9 @@
-var fgImg = null;
+var fgImg = null, blurImg=null;
 var canvas;
 var greyImg=null, redImg=null, rainbowImg=null, blueImg=null, greenImg=null, borderOnImg=null;
 
+
+// load Image to canvas
 function loadImg(){
   var file=document.getElementById("imgFile");
   canvas = document.getElementById("box");
@@ -15,6 +17,8 @@ function loadImg(){
   fgImg.drawTo(canvas);
 }
 
+
+// add border to image
 function addBorder(){
   if(fgImg==null)
     alert("Image not loaded");
@@ -35,6 +39,8 @@ function addBorder(){
     }
   }
 }
+
+// convert Image to blank and white 
 function blankAndWhite(){
   if(fgImg==null){
     alert("Image not loaded");
@@ -68,6 +74,8 @@ function redColor(){
 }
 }
 
+
+// convert image to blue scale
 function blueColor(){
   if(fgImg==null){
     alert("Image not loaded");
@@ -88,6 +96,8 @@ function blueColor(){
 }
 }
 
+
+// convert Image color to green
 function greenColor(){
   if(fgImg==null){
     alert("Image not loaded");
@@ -108,6 +118,7 @@ function greenColor(){
 }
 }
 
+// reset Image to original
 function resetImage() {
   if(fgImg==null){
     alert("Image not loaded");
@@ -119,13 +130,54 @@ function resetImage() {
     greenImg = new SimpleImage(fgImg);
     rainbowImg = new SimpleImage(fgImg);
     borderOnImg = new SimpleImage(fgImg);
+    blurImg = new SimpleImage(fgImg);
+
   }
 }
-
-function blurImg(){
-alert("Not done yet");
+// blur by moving random pixels
+function ensureInImage (coordinate, size) {
+  // coordinate cannot be negative
+  if (coordinate < 0) {
+      return 0;
+  }
+  // coordinate must be in range [0 .. size-1]
+  if (coordinate >= size) {
+      return size - 1;
+  }
+  return coordinate;
 }
 
+function getPixelNearby (blurImg, x, y, diameter) {
+  var dx = Math.random() * diameter - diameter / 2;
+  var dy = Math.random() * diameter - diameter / 2;
+  var nx = ensureInImage(x + dx, blurImg.getWidth());
+  var ny = ensureInImage(y + dy, blurImg.getHeight());
+  return blurImg.getPixel(nx, ny);
+}
+
+
+function blurM(){
+  if(fgImg==null){
+    alert("Image Not Loaded");
+  }else{
+  console.log("blurr");
+  blurImg = new SimpleImage(fgImg);
+  var output = new SimpleImage(blurImg.getWidth(), blurImg.getHeight());
+  for (var pixel of blurImg.values()) {
+    var x = pixel.getX();
+    var y = pixel.getY();
+    if (Math.random() > 0.5) {
+      var other = getPixelNearby(blurImg, x, y, 10);
+      output.setPixel(x, y, other);
+    }
+    else {
+      output.setPixel(x, y, pixel);
+    }
+  }
+  output.drawTo(canvas);
+}
+}
+// code for rainbow
 function rainbow(){
   if(fgImg==null){
     alert("Image not loaded");
